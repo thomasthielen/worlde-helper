@@ -14,7 +14,7 @@ public class Helper {
   private static HashSet<String> goodStarters = new HashSet<String>();
 
   public static void main(String[] args) {
-    createFiveLetterDictionary();
+    readFiveLetterDictionary();
     extractGoodStarters();
 
     System.out.println("Good starter words:");
@@ -26,8 +26,8 @@ public class Helper {
 
     String line;
     do {
-      System.out.println("\n\nEnter the letters which already are at their correct spot!\nFor blank spaces, use a '?'");
-      System.out.println("Example: '?E??R'");
+      System.out.println("\n\nEnter the letters which already are at their correct spot!\nFor blank spaces, use a '?'.");
+      System.out.println("(Example: '?E??R')");
       line = reader.nextLine();
     } while (line.length() != 5 || !line.matches("[a-zA-Z?]+"));
 
@@ -70,17 +70,17 @@ public class Helper {
     for (String solution : possibleSolutions) {
       System.out.println(solution);
     }
+    
+    reader.close();
   }
 
-  private static void createFiveLetterDictionary() {
+  private static void readFiveLetterDictionary() {
     // read the whole dictionary
-    try (BufferedReader br = new BufferedReader(new FileReader("src/helper/dictionary.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("src/helper/simple_five_letters.txt"))) {
       String line = br.readLine();
       while (line != null) {
         // only add words with a length of exactly 5
-        if (line.length() == 5) {
           fiveLetters.add(line);
-        }
         line = br.readLine();
       }
     } catch (FileNotFoundException e) {
@@ -91,10 +91,10 @@ public class Helper {
   }
 
   private static void extractGoodStarters() {
-    // naive heuristic: choose words with many (different!) vowels
+    // naive heuristic: choose words the five most common letters
     for (String word : fiveLetters) {
       word = word.toLowerCase();
-      if (word.contains("a") && word.contains("e") && word.contains("i")) {
+      if (word.contains("e") && word.contains("s") && word.contains("a") && word.contains("r") ) {
         goodStarters.add(word);
       }
     }
